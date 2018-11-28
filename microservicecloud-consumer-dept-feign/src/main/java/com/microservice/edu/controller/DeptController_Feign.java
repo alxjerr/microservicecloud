@@ -1,6 +1,7 @@
 package com.microservice.edu.controller;
 
 import com.microservice.edu.entities.Dept;
+import com.microservice.edu.service.DeptClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,37 +13,22 @@ import java.util.List;
 @RestController
 public class DeptController_Feign {
 
-//    private static final String REST_URL_PREFIX = "http://localhost:8001";
-    private static final String REST_URL_PREFIX = "http://MICROSERVICECLOUD-DEPT";
-
     @Autowired
-    private RestTemplate restTemplate;
+    private DeptClientService service;
 
-    @RequestMapping(value="/consumer/dept/add")
-    public boolean add(Dept dept)
-    {
-        return restTemplate.postForObject(REST_URL_PREFIX+"/dept/add", dept, Boolean.class);
+
+    @RequestMapping(value = "/consumer/dept/get/{id}")
+    public Dept get(@PathVariable("id") Long id){
+        return this.service.get(id);
     }
 
-
-    @RequestMapping(value="/consumer/dept/get/{id}")
-    public Dept get(@PathVariable("id") Long id)
-    {
-        return restTemplate.getForObject(REST_URL_PREFIX+"/dept/get/"+id, Dept.class);
+    @RequestMapping(value = "/consumer/dept/lsit")
+    public List<Dept> list(){
+        return this.service.list();
     }
 
-    @SuppressWarnings("unchecked")
-    @RequestMapping(value="/consumer/dept/list")
-    public List<Dept> list()
-    {
-        return restTemplate.getForObject(REST_URL_PREFIX+"/dept/list", List.class);
+    @RequestMapping(value = "/consumer/dept/add")
+    public boolean add(Dept dept){
+        return this.service.add(dept);
     }
-
-    //测试@EnableDiscoveryClient,消费端可以调用服务发现
-    @RequestMapping(value="/consumer/dept/discovery")
-    public Object discovery()
-    {
-        return restTemplate.getForObject(REST_URL_PREFIX+"/dept/discovery", Object.class);
-    }
-
 }

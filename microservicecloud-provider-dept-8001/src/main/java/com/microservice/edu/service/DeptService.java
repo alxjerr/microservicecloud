@@ -1,7 +1,10 @@
 package com.microservice.edu.service;
 
-public interface DeptService {
+import com.microservice.edu.entities.Dept;
 
+import java.util.List;
+
+public interface DeptService {
 
     public boolean add(Dept dept);
     public Dept    get(Long id);

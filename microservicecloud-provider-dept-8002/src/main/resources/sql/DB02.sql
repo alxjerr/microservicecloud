@@ -1,6 +1,9 @@
-DROP DATABASE IF EXISTS cloudDB01;
-CREATE DATABASE cloudDB01 CHARACTER SET UTF8;
-USE cloudDB01;
+DROP DATABASE IF EXISTS cloudDB02;
+
+CREATE DATABASE cloudDB02 CHARACTER SET UTF8;
+
+USE cloudDB02;
+
 CREATE TABLE dept
 (
   deptno BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -13,9 +16,3 @@ INSERT INTO dept(dname,db_source) VALUES('人事部',DATABASE());
 INSERT INTO dept(dname,db_source) VALUES('财务部',DATABASE());
 INSERT INTO dept(dname,db_source) VALUES('市场部',DATABASE());
 INSERT INTO dept(dname,db_source) VALUES('运维部',DATABASE());
-
-SELECT * FROM dept;
-
-
-
-
