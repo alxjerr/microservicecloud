@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>microservicecloud-zuul-gateway-9527</artifactId>
+    <version>${microservicecloud-zuul-gateway-version}</version>
 
     <dependencies>
         <!-- zuul路由网关 -->
@@ -64,40 +65,5 @@
         </dependency>
     </dependencies>
 
-    <build>
-       <plugins>
-           <plugin>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-maven-plugin</artifactId>
-           </plugin>
 
-           <plugin>
-               <groupId>com.spotify</groupId>
-               <artifactId>docker-maven-plugin</artifactId>
-               <version>1.0.0</version>
-               <configuration>
-                   <imageName>${project.artifactId}-${project.version}</imageName>
-                   <imageTags>
-                       <imageTag>${project.version}</imageTag>
-                   </imageTags>
-                   <registryUrl>123.206.13.202:5000</registryUrl>
-                   <pushImage>true</pushImage>
-                   <imageName>123.206.13.202:5000/${project.artifactId}:${project.version}</imageName>
-
-                   <resources>
-                       <resource>
-                           <targetPath>/</targetPath>
-                           <directory>${project.build.directory}</directory>
-                           <include>${project.artifactId}-${project.version}.jar</include>
-                       </resource>
-                   </resources>
-               </configuration>
-           </plugin>
-       </plugins>
-    </build>
 </project>
-
-<!--
-
-
--->

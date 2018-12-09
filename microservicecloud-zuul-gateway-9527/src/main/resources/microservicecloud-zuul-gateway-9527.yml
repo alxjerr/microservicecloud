@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  microservicecloud-zuul-gateway-9527:
+    volumes:
+    - /log:/log
+    - /html/cntv:/html/cntv
+    image: 192.168.10.179:5000/microservicecloud-zuul-gateway-9527:2018-11-29
+    networks:
+    - hostnet
+    deploy:
+      placement:
+        constraints:
+        - node.labels.zone==z1
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    environment:
+    - zone=z1
+    labels:
+      application_name: "microservicecloud-zuul-gateway-9527"
+
+networks:
+  hostnet:
+    external:
+      name: host
