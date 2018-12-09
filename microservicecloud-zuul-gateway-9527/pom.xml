@@ -37,11 +37,11 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <!-- 日常标配 -->
-        <dependency>
-            <groupId>com.microservice.edu</groupId>
-            <artifactId>microservicecloud-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.microservice.edu</groupId>-->
+            <!--<artifactId>microservicecloud-api</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
@@ -65,5 +65,67 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <!-- mvn help:active-profiles 查询当前激活的profile -->
+        <!-- 1、手动激活，直接使用命令指定id mvn package -P test -->
+        <profile>
+            <id>idmlab</id>
+            <properties>
+                <config.prefix></config.prefix>
+                <config.ip>192.168.10.179</config.ip>
+                <config.dir>idmlab</config.dir>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>app</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.4.RELEASE</version>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+
+          <!--  <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>sp</artifactId>
+            </plugin>-->
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <imageName>${config.ip}:5000/${config.prefix}${artifactId}:${version}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <skipDockerBuild>false</skipDockerBuild>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                        <resource>
+                            <targetPath>/config/</targetPath>
+                            <directory>${project.build.directory}/classes/${config.dir}</directory>
+                            <include>*.yml</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!--使用：
+    1、实验室
+        set DOCKER_HOST=tcp://192.168.10.179:2375
+        mvn clean package -P idmlab docker:build -DpushImage
+    -->
 
 </project>
