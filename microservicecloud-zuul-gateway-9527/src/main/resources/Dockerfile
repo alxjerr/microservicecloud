@@ -1,0 +1,7 @@
+FROM java:8
+ENV ARTIFACTID microservicecloud-zuul-gateway-9527
+ENV ARTIFACTVERSION 0.0.1-SNAPSHOT
+ENV HOME_PATH /home
+WORKDIR $HOME_PATH
+ADD /$ARTIFACTID‐$ARTIFACTVERSION.jar $HOME_PATH/$ARTIFACTID.jar
+ENTRYPOINT ["java", "‐jar", "microservicecloud-zuul-gateway-9527.jar"]
