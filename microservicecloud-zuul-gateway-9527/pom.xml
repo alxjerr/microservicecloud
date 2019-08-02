@@ -92,12 +92,6 @@
                     <executable>true</executable>
                 </configuration>
             </plugin>
-
-          <!--  <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>sp</artifactId>
-            </plugin>-->
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>

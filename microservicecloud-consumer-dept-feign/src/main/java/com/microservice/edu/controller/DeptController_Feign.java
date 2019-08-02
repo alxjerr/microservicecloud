@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class DeptController_Feign {
+public class DeptController_Feign   {
 
     @Autowired
     private DeptClientService service;

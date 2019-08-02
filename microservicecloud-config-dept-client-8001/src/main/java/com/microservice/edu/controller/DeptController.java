@@ -3,6 +3,7 @@ package com.microservice.edu.controller;
 import com.microservice.edu.entities.Dept;
 import com.microservice.edu.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,14 @@ public class DeptController {
 
     @Autowired
     private DiscoveryClient client;
+
+    @Value("${test.apollo.application}")
+    private String config;
+
+    @RequestMapping(value = "/config")
+    public String config(){
+        return config;
+    }
 
     @RequestMapping(value="/dept/add",method= RequestMethod.POST)
     public boolean add(@RequestBody Dept dept)
